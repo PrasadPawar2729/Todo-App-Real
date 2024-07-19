@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express()
+const cors = require("cors")
 const { connection } = require('./config/db');
 
 const http = require('http');
@@ -15,8 +16,9 @@ const io = socketIo(server);
 
 
 app.use(express.json());
+app.use(cors())
 app.use("/users",userRouter)
-app.use("/task",auth,taskRouter)
+app.use("/task",taskRouter)
 
 io.on('connection', (socket) => {
     console.log('New client connected');
